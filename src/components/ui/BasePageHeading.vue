@@ -22,7 +22,9 @@ defineProps({
           class="flex-column flex-sm-row"
         >
           <v-col class="pa-0" cols="12" sm="auto">
-            <h1 v-if="title" class="text-h5 font-weight-bold mb-1">{{ title }}</h1>
+            <h1 v-if="title" class="text-h5 font-weight-bold mb-1">
+              {{ title }}
+            </h1>
             <div v-if="$slots.subtitle">
               <slot name="subtitle"></slot>
             </div>
