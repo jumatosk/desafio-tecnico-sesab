@@ -29,7 +29,15 @@ const getItemById = async (id) => {
 const updateItem = async (params) => {
   const id = params.id
   delete params.id
-  const result = await useApiStore().put(`${apiUrl}`, id, JSON.parse(JSON.stringify(params)))
+  const result = await useApiStore().put(apiUrl, id, JSON.parse(JSON.stringify(params)))
+  if (result) {
+    return result
+  }
+  return false
+}
+
+const deleteItem = async (id) => {
+  const result = await useApiStore().delete(apiUrl, id)
   if (result) {
     return result
   }
@@ -41,4 +49,5 @@ export default {
   createItem,
   getItemById,
   updateItem,
+  deleteItem,
 }
