@@ -1,3 +1,18 @@
 body {
   font-family: 'Inter', Arial, sans-serif;
 }
+
+#nprogress .bar,
+#nprogress .spinner {
+  z-index: 2000;
+}
+
+#nprogress .bar {
+  background-color: #1976d2;
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px #1976d2,
+    0 0 5px #1976d2;
+}

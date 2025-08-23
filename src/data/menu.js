@@ -3,8 +3,8 @@ export default {
     {
       name: 'Produtos',
       icon: 'mdi-shopping',
-      subActivePaths: '/produtos',
-      to: 'produtos',
+      subActivePaths: '/products',
+      to: 'products',
     },
   ],
 }

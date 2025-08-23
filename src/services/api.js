@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import swal from 'sweetalert2'
-import NProgress from 'nprogress/nprogress.js'
+import NProgress from 'nprogress'
 import { getToken } from './jwt'
 
 export const useApiStore = defineStore('apiStore', {
