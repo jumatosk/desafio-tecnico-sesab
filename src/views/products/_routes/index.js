@@ -23,4 +23,12 @@ export default [
       pageTitle: 'Editar produto',
     },
   },
+  {
+    path: '/products/view/:id',
+    name: 'products-view',
+    component: () => import('@/views/products/_components/show.vue'),
+    meta: {
+      pageTitle: 'Detalhar produto',
+    },
+  },
 ]

@@ -15,7 +15,7 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['edit', 'delete'])
+const emit = defineEmits(['edit', 'view', 'delete'])
 </script>
 <template>
   <v-card class="mx-auto my-2 elevation-1" max-width="300" outlined>
@@ -35,6 +35,16 @@ const emit = defineEmits(['edit', 'delete'])
           title="Editar"
         >
           <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          size="small"
+          color="blue-lighten-1"
+          variant="text"
+          @click="$emit('view')"
+          title="Detalhar"
+        >
+          <v-icon>mdi-eye</v-icon>
         </v-btn>
         <v-btn
           icon

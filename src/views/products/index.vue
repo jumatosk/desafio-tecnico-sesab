@@ -22,6 +22,10 @@ const editProduct = (id) => {
   router.push(`/products/edit/${id}`)
 }
 
+const viewProduct = (id) => {
+  router.push(`/products/view/${id}`)
+}
+
 const deleteProduct = async (item) => {
   Swal.deleteMessage('Deseja excluir o item: ', `${item.title}`).then(async (result) => {
     if (result.isConfirmed) {
@@ -49,6 +53,7 @@ const deleteProduct = async (item) => {
         :price="product.price"
         :image="product.image"
         @edit="() => editProduct(product.id)"
+        @view="() => viewProduct(product.id)"
         @delete="() => deleteProduct(product)"
       />
     </v-col>
