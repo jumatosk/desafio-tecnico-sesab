@@ -70,11 +70,9 @@ function onInput(event) {
     >{{ label }} <span v-if="required" class="text-red">*</span></label
   >
   <v-text-field
-    :label="label"
     v-model="displayValue"
     variant="outlined"
     density="compact"
-    maxlength="17"
     @input="onInput"
     :error="error"
     :error-messages="errorMessages"

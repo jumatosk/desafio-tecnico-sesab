@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <v-sheet class="pa-0">
+  <v-sheet class="pb-4">
     <v-container class="py-2">
       <slot>
         <v-row
