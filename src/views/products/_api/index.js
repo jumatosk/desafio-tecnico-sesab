@@ -18,7 +18,27 @@ const createItem = async (params) => {
   return false
 }
 
+const getItemById = async (id) => {
+  const result = await useApiStore().get(`${apiUrl}/${id}`)
+  if (result) {
+    return result.data
+  }
+  return false
+}
+
+const updateItem = async (params) => {
+  const id = params.id
+  delete params.id
+  const result = await useApiStore().put(`${apiUrl}`, id, JSON.parse(JSON.stringify(params)))
+  if (result) {
+    return result
+  }
+  return false
+}
+
 export default {
   getIndex,
   createItem,
+  getItemById,
+  updateItem,
 }

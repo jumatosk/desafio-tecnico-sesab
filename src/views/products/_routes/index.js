@@ -15,4 +15,12 @@ export default [
       pageTitle: 'Cadastrar produto',
     },
   },
+  {
+    path: '/products/edit/:id',
+    name: 'products-edit',
+    component: () => import('@/views/products/_components/form.vue'),
+    meta: {
+      pageTitle: 'Editar produto',
+    },
+  },
 ]

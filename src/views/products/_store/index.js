@@ -5,6 +5,7 @@ import getters from './getters'
 export const useProductsStore = defineStore('products', {
   state: () => ({
     index: [],
+    productById: {},
   }),
   getters,
   actions,

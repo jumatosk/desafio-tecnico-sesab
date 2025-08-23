@@ -3,6 +3,7 @@ export const Strings = {
   btn_salvar: 'Salvar',
 
   msg_adicionar: 'Adicionado com sucesso.',
+  msg_alterar: 'Alterado com sucesso.',
 
   //Mensagens de validação de formulário
   campo_obrigatorio: 'Campo obrigatório.',

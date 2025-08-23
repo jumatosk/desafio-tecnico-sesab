@@ -12,6 +12,10 @@ const stateProducts = productsStore.$state
 onMounted(async () => {
   await productsStore.getIndex()
 })
+
+const editProduct = (id) => {
+  router.push(`/products/edit/${id}`)
+}
 </script>
 <template>
   <base-page-heading title="Lista de itens">
@@ -24,7 +28,12 @@ onMounted(async () => {
   </base-page-heading>
   <v-row>
     <v-col v-for="product in stateProducts.index" :key="product.id" cols="12" sm="6" md="4">
-      <ProductCard :name="product.title" :price="product.price" :image="product.image" />
+      <ProductCard
+        :name="product.title"
+        :price="product.price"
+        :image="product.image"
+        @edit="() => editProduct(product.id)"
+      />
     </v-col>
   </v-row>
 </template>

@@ -15,13 +15,19 @@ const route = useRoute()
 const router = useRouter()
 const strings = inject('strings')
 
-onMounted(async () => {})
+onMounted(async () => {
+  breadcrumbs.value[1].title = 'Cadastrar'
+  if (route.params.id) {
+    breadcrumbs.value[1].title = 'Editar'
+    await productsStore.getItemById(route.params.id)
+  }
+})
 
 const rules = computed(() => {
   return {
     title: {
       required,
-      maxLength: maxLength(255),
+      maxLength: maxLength(400),
     },
     price: {
       required,
@@ -29,7 +35,7 @@ const rules = computed(() => {
     },
     description: {
       required,
-      maxLength: maxLength(255),
+      maxLength: maxLength(400),
     },
     category: {
       required,
@@ -37,7 +43,7 @@ const rules = computed(() => {
     },
     image: {
       required,
-      maxLength: maxLength(255),
+      maxLength: maxLength(400),
     },
   }
 })
@@ -50,11 +56,22 @@ const onSubmit = async () => {
     return
   }
 
-  const response = await productsStore.createItem(form)
+  if (route.params.id) {
+    form.id = route.params.id
 
-  if (response.status == 201) {
-    Swal.messageToast(strings.msg_adicionar)
-    router.go(-1)
+    const response = await productsStore.updateItem(form)
+
+    if (response.status == 200) {
+      Swal.messageToast(strings.msg_alterar)
+      router.go(-1)
+    }
+  } else {
+    const response = await productsStore.createItem(form)
+
+    if (response.status == 201) {
+      Swal.messageToast(strings.msg_adicionar)
+      router.go(-1)
+    }
   }
 }
 
@@ -89,11 +106,23 @@ watch(
   },
   { deep: true },
 )
+
+watch(
+  () => stateProducts.productById,
+  async (itemById) => {
+    let keys = Object.keys(form)
+    keys.forEach((i) => {
+      if (itemById[i] != null) {
+        form[i] = itemById[i]
+      }
+    })
+  },
+)
 </script>
 <template>
-  <base-page-heading title="Novo Produto">
+  <base-page-heading :title="route.params.id ? 'Editar produto' : 'Novo Produto'">
     <template #subtitle>
-      <Breadcrumbs :items="constants.breadcrumbsForm"></Breadcrumbs>
+      <Breadcrumbs :items="breadcrumbs"></Breadcrumbs>
     </template>
   </base-page-heading>
   <form @submit.prevent="onSubmit">
