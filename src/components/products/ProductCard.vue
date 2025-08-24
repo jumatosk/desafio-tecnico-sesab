@@ -14,18 +14,27 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  showActions: {
+    type: Boolean,
+    default: true,
+  },
 })
 const emit = defineEmits(['edit', 'view', 'delete'])
 </script>
 <template>
-  <v-card class="mx-auto my-2 elevation-1" max-width="300" outlined>
+  <v-card
+    class="mx-auto my-2 elevation-1 cursor-pointer"
+    @click="$emit('view')"
+    max-width="300"
+    outlined
+  >
     <v-img :src="image" height="180" class="rounded-t"></v-img>
-    <v-card-title class="font-weight-bold text-body-1">{{ name }}</v-card-title>
+    <v-card-title class="font-weight-medium text-body-1">{{ name }}</v-card-title>
     <v-row align="center" justify="space-between" class="px-4 mb-2">
-      <v-card-subtitle class="font-weight-bold text-brown-darken-4">
+      <v-card-title class="text-grey-darken-4">
         {{ formatCurrencyBR(price) }}
-      </v-card-subtitle>
-      <div class="d-flex align-center">
+      </v-card-title>
+      <div class="d-flex align-center" v-if="showActions">
         <v-btn
           icon
           size="small"
@@ -35,16 +44,6 @@ const emit = defineEmits(['edit', 'view', 'delete'])
           title="Editar"
         >
           <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          size="small"
-          color="blue-lighten-1"
-          variant="text"
-          @click="$emit('view')"
-          title="Detalhar"
-        >
-          <v-icon>mdi-eye</v-icon>
         </v-btn>
         <v-btn
           icon
