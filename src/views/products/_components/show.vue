@@ -4,7 +4,7 @@ import { useProductsStore } from '../_store'
 import { useRouter, useRoute } from 'vue-router'
 import { constants } from '../_constants'
 import ShowData from '@/components/ui/ShowData.vue'
-import { formatCurrencyBR } from '@/functions/formatCurrency'
+import ProductCard from '@/components/products/ProductCard.vue'
 
 const productsStore = useProductsStore()
 const stateProducts = productsStore.$state
@@ -41,27 +41,24 @@ watch(
   </base-page-heading>
   <v-card class="pa-4 mb-4 bg-grey-lighten-5 elevation-0">
     <v-row>
-      <v-col cols="12" sm="12" md="9">
-        <ShowData label="Nome" :value="form.title" />
-      </v-col>
-      <v-col cols="12" sm="12" md="3">
-        <ShowData label="Preço" :value="formatCurrencyBR(form.price)" />
-      </v-col>
-      <v-col cols="12" sm="12" md="12">
-        <ShowData label="Descrição" :value="form.description" />
-      </v-col>
       <v-col cols="12" sm="12" md="6">
-        <ShowData label="Categoria" :value="form.category" />
+        <ProductCard
+          :name="form.title"
+          :price="form.price"
+          :image="form.image"
+          :show-actions="false"
+        />
       </v-col>
-      <v-col cols="12" sm="12" md="6">
-        <ShowData label="URL da Imagem" :value="form.image" />
-        <div v-if="form.image" class="mt-2">
-          <img
-            :src="form.image"
-            alt="Imagem do Produto"
-            style="max-width: 100%; max-height: 200px; border-radius: 8px"
-          />
-        </div>
+      <v-col>
+        <v-col cols="12" sm="12" md="9">
+          <ShowData :value="form.title" />
+        </v-col>
+        <v-col cols="12" sm="12" md="12">
+          <ShowData label="Descrição" :value="form.description" />
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <ShowData label="Categoria" :value="form.category" />
+        </v-col>
       </v-col>
     </v-row>
     <div class="d-flex justify-end mt-4">
