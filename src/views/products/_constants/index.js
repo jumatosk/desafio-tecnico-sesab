@@ -25,11 +25,16 @@ const breadcrumbsForm = [
 ]
 
 const form = {
+  id: null,
   title: '',
   price: '',
   description: '',
   category: '',
   image: '',
+  rating: {
+    rate: '',
+    count: '',
+  },
 }
 
 export const constants = {

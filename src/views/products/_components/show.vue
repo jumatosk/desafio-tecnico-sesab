@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, inject, ref, reactive, watch } from 'vue'
 import { useProductsStore } from '../_store'
+import { useCartStore } from '../../cart/_store'
 import { useRouter, useRoute } from 'vue-router'
 import { constants } from '../_constants'
 import ShowData from '@/components/ui/ShowData.vue'
@@ -8,6 +9,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
 
 const productsStore = useProductsStore()
 const stateProducts = productsStore.$state
+const cartStore = useCartStore()
 const breadcrumbs = ref(constants.breadcrumbsForm)
 const form = reactive({ ...constants.form })
 const route = useRoute()
@@ -20,6 +22,11 @@ onMounted(async () => {
     await productsStore.getItemById(route.params.id)
   }
 })
+
+const addItemToCart = () => {
+  cartStore.addItem(form)
+  Swal.messageToast('Adicionado ao carrinho!', 'success', 'top-end', 1000)
+}
 
 watch(
   () => stateProducts.productById,
@@ -48,6 +55,11 @@ watch(
           :image="form.image"
           :show-actions="false"
         />
+        <div class="d-flex justify-center align-center mt-4">
+          <Button color="green" :onClick="addItemToCart">
+            <v-icon class="mr-2">mdi-cart-outline</v-icon> Adicionar ao carrinho
+          </Button>
+        </div>
       </v-col>
       <v-col>
         <v-col cols="12" sm="12" md="9">
@@ -58,6 +70,11 @@ watch(
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <ShowData label="Categoria" :value="form.category" />
+        </v-col>
+        <v-col cols="12" sm="12" md="12">
+          {{ form.rating.rate }} <v-icon color="yellow darken-3" class="me-1">mdi-star</v-icon>
+          Avaliações do produto
+          <span> ({{ form.rating.count }})</span>
         </v-col>
       </v-col>
     </v-row>
