@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import productsRoutes from '../views/products/_routes/index.js'
+import CartRoutes from '../views/cart/_routes/index.js'
 
 NProgress.configure({ showSpinner: false })
 
@@ -9,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/products',
-      children: [...productsRoutes],
+      children: [...productsRoutes, ...CartRoutes],
     },
   ],
 })

@@ -1,14 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import Drawer from './Drawer.vue'
+import Cart from './Cart.vue'
 
 const drawer = ref(true)
 </script>
 <template>
   <Drawer v-model="drawer" />
   <v-app-bar app>
-    <v-btn icon @click="drawer = !drawer">
-      <v-icon>mdi-menu</v-icon>
-    </v-btn>
+    <template v-slot:prepend>
+      <IconButton density="default" :icon="'mdi-menu'" color="black" @click="drawer = !drawer" />
+    </template>
+
+    <div class="mr-4"><Cart /></div>
   </v-app-bar>
 </template>
