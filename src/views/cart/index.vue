@@ -28,6 +28,16 @@ const getItemQuantity = (id) => stateCart.index.filter((item) => item.id === id)
 const totalPrice = computed(() =>
   cartItems.value.reduce((acc, item) => acc + item.price * getItemQuantity(item.id), 0),
 )
+
+const addItemToCart = (item) => {
+  cartStore.addItem(item)
+}
+
+const decreaseItemFromCart = (item) => {
+  if (getItemQuantity(item.id) > 1) {
+    cartStore.decreaseItem(item)
+  }
+}
 </script>
 
 <template>
@@ -59,7 +69,15 @@ const totalPrice = computed(() =>
                 {{ formatCurrencyBR(item.price) }}
               </template>
               <template #quantity="{ item }">
-                {{ getItemQuantity(item.id) }}
+                <div class="d-flex justify-space-evenly">
+                  <IconButton
+                    icon="mdi-minus"
+                    color="black"
+                    :onClick="() => decreaseItemFromCart(item)"
+                  />
+                  <div>{{ getItemQuantity(item.id) }}</div>
+                  <IconButton icon="mdi-plus" color="black" :onClick="() => addItemToCart(item)" />
+                </div>
               </template>
               <template #no-data>
                 <div class="font-italic text-center">Seu carrinho está vazio.</div>
