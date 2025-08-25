@@ -24,6 +24,20 @@ const editUser = (id) => {
 const viewUser = (id) => {
   router.push(`/users/view/${id}`)
 }
+
+const deleteUser = async (item) => {
+  Swal.deleteMessage(
+    'Deseja excluir o usuário: ',
+    `${item.name.firstname} ${item.name.lastname}`,
+  ).then(async (result) => {
+    if (result.isConfirmed) {
+      const response = await usersStore.deleteItem(item.id)
+      if (response.status != 200) return false
+      await search()
+      Swal.messageToast(strings.msg_excluir)
+    }
+  })
+}
 </script>
 <template>
   <base-page-heading title="Usuários">
@@ -54,6 +68,13 @@ const viewUser = (id) => {
         variant="text"
         :onClick="() => viewUser(item.id)"
         title="Detalhar"
+      />
+      <IconButton
+        icon="mdi-delete"
+        color="red-lighten-1"
+        variant="text"
+        :onClick="() => deleteUser(item)"
+        title="Excluir"
       />
     </template>
   </Datatable>

@@ -37,9 +37,18 @@ const updateItem = async (params) => {
   return false
 }
 
+const deleteItem = async (id) => {
+  const result = await useApiStore().delete(apiUrl, id)
+  if (result) {
+    return result
+  }
+  return false
+}
+
 export default {
   getIndex,
   createItem,
   getItemById,
   updateItem,
+  deleteItem,
 }

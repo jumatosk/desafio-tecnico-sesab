@@ -16,9 +16,14 @@ async function updateItem(params) {
   return await api.updateItem(params)
 }
 
+async function deleteItem(id) {
+  return await api.deleteItem(id)
+}
+
 export default {
   getIndex,
   createItem,
   getItemById,
   updateItem,
+  deleteItem,
 }
