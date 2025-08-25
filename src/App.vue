@@ -1,16 +1,12 @@
 <script setup>
-import Header from './components/ui/Header.vue'
-import GlobalLayout from './components/ui/GlobalLayout.vue'
-import Footer from './components/ui/Footer.vue'
+import { onMounted } from 'vue'
+
+onMounted(() => {})
 </script>
 
 <template>
   <v-app>
-    <Header />
-    <GlobalLayout>
-      <router-view />
-    </GlobalLayout>
-    <Footer />
+    <router-view />
   </v-app>
 </template>
 
