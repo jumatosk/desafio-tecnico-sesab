@@ -22,6 +22,9 @@ const search = async () => {
     <template #subtitle>
       <Breadcrumbs :items="constants.breadcrumbs"></Breadcrumbs>
     </template>
+    <template #extra>
+      <Button @click="router.push('/users/create')"> Adicionar </Button>
+    </template>
   </base-page-heading>
-  <Datatable :data="stateUsers.index" :headers="constants.headers" />
+  <Datatable :data="stateUsers.index" :headers="constants.headers" :showPaginate="false" />
 </template>

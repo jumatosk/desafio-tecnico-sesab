@@ -23,7 +23,29 @@ const breadcrumbs = [
   },
 ]
 
+const breadcrumbsForm = [
+  {
+    title: 'Usuários',
+    to: '/users',
+    disabled: false,
+  },
+  {
+    title: 'Cadastrar',
+    to: '',
+    disabled: true,
+  },
+]
+
+const form = {
+  id: null,
+  username: '',
+  email: '',
+  password: '',
+}
+
 export const constants = {
   headers,
   breadcrumbs,
+  breadcrumbsForm,
+  form,
 }

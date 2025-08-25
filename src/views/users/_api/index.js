@@ -10,6 +10,16 @@ const getIndex = async (params) => {
   return false
 }
 
+const createItem = async (params) => {
+  const result = await useApiStore().post(apiUrl, JSON.parse(JSON.stringify(params)))
+
+  if (result) {
+    return result
+  }
+  return false
+}
+
 export default {
   getIndex,
+  createItem,
 }

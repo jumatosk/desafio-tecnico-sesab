@@ -7,4 +7,12 @@ export default [
       pageTitle: 'Usuários',
     },
   },
+  {
+    path: '/users/create',
+    name: 'users-create',
+    component: () => import('../_components/form.vue'),
+    meta: {
+      pageTitle: 'Criar Usuário',
+    },
+  },
 ]

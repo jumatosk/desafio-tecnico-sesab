@@ -8,8 +8,8 @@ export default [
     },
   },
   {
-    path: '/products/register',
-    name: 'products-register',
+    path: '/products/create',
+    name: 'products-create',
     component: () => import('@/views/products/_components/form.vue'),
     meta: {
       pageTitle: 'Cadastrar produto',

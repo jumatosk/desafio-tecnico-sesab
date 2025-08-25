@@ -43,7 +43,7 @@ const deleteProduct = async (item) => {
       <Breadcrumbs :items="constants.breadcrumbs"></Breadcrumbs>
     </template>
     <template #extra>
-      <Button @click="router.push('/products/register')"> Adicionar </Button>
+      <Button @click="router.push('/products/create')"> Adicionar </Button>
     </template>
   </base-page-heading>
   <v-row>
