@@ -96,8 +96,8 @@ export const useApiStore = defineStore('apiStore', {
 
         case 0:
         case 401:
-          if (response.statusText === 'Unauthorized') {
-            this.messageError(response, errorMsg, 'Atenção!', 'error')
+          if (response) {
+            this.messageError(response, response.data, 'Atenção!', 'error')
           } else {
           }
           break
@@ -181,7 +181,6 @@ export const useApiStore = defineStore('apiStore', {
       })
       if (response?.status === 401) {
         localStorage.clear()
-        this.router.replace({ name: 'auth-signin' })
       }
     },
 
