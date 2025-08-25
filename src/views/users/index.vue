@@ -16,6 +16,10 @@ onMounted(async () => {
 const search = async () => {
   await usersStore.getIndex()
 }
+
+const editUser = (id) => {
+  router.push(`/users/edit/${id}`)
+}
 </script>
 <template>
   <base-page-heading title="Usuários">
@@ -26,5 +30,20 @@ const search = async () => {
       <Button @click="router.push('/users/create')"> Adicionar </Button>
     </template>
   </base-page-heading>
-  <Datatable :data="stateUsers.index" :headers="constants.headers" :showPaginate="false" />
+  <Datatable
+    :data="stateUsers.index"
+    :headers="constants.headers"
+    :showPaginate="false"
+    :customColumn="['actions']"
+  >
+    <template #actions="{ item }">
+      <IconButton
+        icon="mdi-pencil"
+        color="green-lighten-1"
+        variant="text"
+        :onClick="() => editUser(item.id)"
+        title="Editar"
+      />
+    </template>
+  </Datatable>
 </template>

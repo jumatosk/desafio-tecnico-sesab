@@ -8,6 +8,7 @@ const headers = [
   { title: 'E-mail', align: 'left', key: 'email' },
   { title: 'Nome de usuário', align: 'left', key: 'username' },
   { title: 'Telefone', align: 'left', key: 'phone' },
+  { title: 'Ações', align: 'left', key: 'actions' },
 ]
 
 const breadcrumbs = [

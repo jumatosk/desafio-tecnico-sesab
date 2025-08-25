@@ -15,6 +15,15 @@ const form = reactive({ ...constants.form })
 const route = useRoute()
 const router = useRouter()
 const strings = inject('strings')
+const showPassword = ref(false)
+
+onMounted(async () => {
+  breadcrumbs.value[1].title = 'Cadastrar'
+  if (route.params.id) {
+    breadcrumbs.value[1].title = 'Editar'
+    await usersStore.getItemById(route.params.id)
+  }
+})
 
 const rules = computed(() => {
   return {
@@ -42,11 +51,22 @@ const onSubmit = async () => {
     return
   }
 
-  const response = await usersStore.createItem(form)
+  if (route.params.id) {
+    form.id = route.params.id
 
-  if (response.status == 201) {
-    Swal.messageToast(strings.msg_adicionar)
-    router.go(-1)
+    const response = await usersStore.updateItem(form)
+
+    if (response.status == 200) {
+      Swal.messageToast(strings.msg_alterar)
+      router.go(-1)
+    }
+  } else {
+    const response = await usersStore.createItem(form)
+
+    if (response.status == 201) {
+      Swal.messageToast(strings.msg_adicionar)
+      router.go(-1)
+    }
   }
 }
 
@@ -67,9 +87,21 @@ watch(v$, (newVal) => {
     newVal.password.$errors[0].$params.message = message
   }
 })
+
+watch(
+  () => stateUsers.userById,
+  async (itemById) => {
+    let keys = Object.keys(form)
+    keys.forEach((i) => {
+      if (itemById[i] != null) {
+        form[i] = itemById[i]
+      }
+    })
+  },
+)
 </script>
 <template>
-  <base-page-heading :title="'Novo Usuário'">
+  <base-page-heading :title="route.params.id ? 'Editar Usuário' : 'Novo Usuário'">
     <template #subtitle>
       <Breadcrumbs :items="breadcrumbs"></Breadcrumbs>
     </template>
@@ -124,9 +156,11 @@ watch(v$, (newVal) => {
             :errorMessages="
               v$.password.$errors.length ? v$.password.$errors[0].$params.message : ''
             "
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Senha"
             required
+            :appendInnerIcon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+            :clickAppend="() => (showPassword = !showPassword)"
           />
         </v-col>
       </v-row>

@@ -8,7 +8,17 @@ async function createItem(params) {
   return await api.createItem(params)
 }
 
+async function getItemById(id) {
+  this.userById = await api.getItemById(id)
+}
+
+async function updateItem(params) {
+  return await api.updateItem(params)
+}
+
 export default {
   getIndex,
   createItem,
+  getItemById,
+  updateItem,
 }

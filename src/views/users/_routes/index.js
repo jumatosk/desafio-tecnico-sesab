@@ -15,4 +15,12 @@ export default [
       pageTitle: 'Criar Usuário',
     },
   },
+  {
+    path: '/users/edit/:id',
+    name: 'users-edit',
+    component: () => import('../_components/form.vue'),
+    meta: {
+      pageTitle: 'Editar Usuário',
+    },
+  },
 ]
