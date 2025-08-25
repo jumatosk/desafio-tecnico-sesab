@@ -9,4 +9,5 @@ export const Strings = {
   //Mensagens de validação de formulário
   campo_obrigatorio: 'Campo obrigatório.',
   max_length: 'Tamanho máximo de caracteres atingido.',
+  email: 'E-mail inválido.',
 }
