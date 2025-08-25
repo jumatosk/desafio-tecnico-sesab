@@ -20,6 +20,10 @@ const search = async () => {
 const editUser = (id) => {
   router.push(`/users/edit/${id}`)
 }
+
+const viewUser = (id) => {
+  router.push(`/users/view/${id}`)
+}
 </script>
 <template>
   <base-page-heading title="Usuários">
@@ -43,6 +47,13 @@ const editUser = (id) => {
         variant="text"
         :onClick="() => editUser(item.id)"
         title="Editar"
+      />
+      <IconButton
+        icon="mdi-eye"
+        color="blue-lighten-1"
+        variant="text"
+        :onClick="() => viewUser(item.id)"
+        title="Detalhar"
       />
     </template>
   </Datatable>

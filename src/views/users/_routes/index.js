@@ -23,4 +23,12 @@ export default [
       pageTitle: 'Editar Usuário',
     },
   },
+  {
+    path: '/users/view/:id',
+    name: 'users-view',
+    component: () => import('../_components/show.vue'),
+    meta: {
+      pageTitle: 'Detalhar Usuário',
+    },
+  },
 ]

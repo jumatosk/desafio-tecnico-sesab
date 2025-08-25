@@ -42,6 +42,21 @@ const form = {
   username: '',
   email: '',
   password: '',
+  address: {
+    geolocation: {
+      lat: '',
+      long: '',
+    },
+    city: '',
+    street: '',
+    number: null,
+    zipcode: '',
+  },
+  name: {
+    firstname: '',
+    lastname: '',
+  },
+  phone: '',
 }
 
 export const constants = {
