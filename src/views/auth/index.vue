@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, computed, ref, watch } from 'vue'
 import { useAuthStore } from './_store'
+import { useUsersStore } from '../users/_store'
 import { useRouter, useRoute } from 'vue-router'
 import { useTemplateStore } from '@/stores/template'
 import useVuelidate from '@vuelidate/core'
@@ -15,6 +16,7 @@ const authStore = useAuthStore()
 const authState = authStore
 const apiStore = useApiStore()
 const showPassword = ref(false)
+const usersStore = useUsersStore()
 
 const form = reactive({
   username: '',
@@ -48,6 +50,7 @@ async function onSubmit() {
       authStore.updateIsLogged(true)
       saveToken(response.data.token)
       saveUsername()
+      saveUserId()
       router.push('/')
     }
   }
@@ -59,6 +62,10 @@ const saveToken = (token) => {
 
 const saveUsername = () => {
   localStorage.setItem('username', form.username)
+}
+
+const saveUserId = () => {
+  localStorage.setItem('userId', usersStore.getUserId())
 }
 
 watch(v$, (newVal) => {

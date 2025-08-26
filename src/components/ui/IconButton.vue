@@ -16,8 +16,12 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  density: {
+    type: String,
+    default: 'compact',
+  },
 })
 </script>
 <template>
-  <v-btn :icon="icon" @click="onClick" density="compact" :color="color" :title="tooltip"> </v-btn>
+  <v-btn :icon="icon" @click="onClick" :density="density" :color="color" :title="tooltip"> </v-btn>
 </template>
