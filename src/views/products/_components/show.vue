@@ -15,6 +15,8 @@ const form = reactive({ ...constants.form })
 const route = useRoute()
 const router = useRouter()
 const strings = inject('strings')
+const userId = localStorage.getItem('userId')
+const cartId = localStorage.getItem('cartId')
 
 onMounted(async () => {
   if (route.params.id) {
@@ -23,9 +25,11 @@ onMounted(async () => {
   }
 })
 
-const addItemToCart = () => {
-  cartStore.addItem(form)
-  Swal.messageToast('Adicionado ao carrinho!', 'success', 'top-end', 1000)
+const addItemToCart = async () => {
+  const response = await cartStore.updateItem({ products: [form], userId, id: cartId })
+
+  if (!response.status == 200) return false
+  Swal.messageToast(strings.msg_adicionar)
 }
 
 watch(
