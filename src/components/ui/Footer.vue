@@ -8,7 +8,7 @@ const store = useTemplateStore()
       <v-row class="text-caption">
         <v-col cols="12" sm="6" class="d-flex align-center justify-center justify-sm-end">
           <slot name="content-right">
-            Desenvolvido por
+            Desenvolvido por &nbsp;
             <a
               class="font-weight-semibold"
               href="https://github.com/jumatosk"

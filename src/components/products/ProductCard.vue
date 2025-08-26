@@ -2,56 +2,53 @@
 import { formatCurrencyBR } from '../../functions/formatCurrency'
 
 const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: [String, Number],
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  showActions: {
-    type: Boolean,
-    default: true,
-  },
+  name: { type: String, required: true },
+  price: { type: [String, Number], required: true },
+  image: { type: String, required: true },
+  showActions: { type: Boolean, default: true },
 })
 const emit = defineEmits(['edit', 'view', 'delete'])
+
+const isLogged = localStorage.getItem('token') != undefined
 </script>
+
 <template>
-  <v-card class="mx-auto my-2 elevation-1 cursor-pointer" max-width="300" outlined>
+  <v-card
+    class="mx-auto my-4 elevation-3 rounded-xl transition-ease-in-out cursor-pointer hover:elevation-6"
+    max-width="300"
+    outlined
+  >
     <div @click="$emit('view')">
-      <v-img :src="image" height="180" class="rounded-t"></v-img>
-      <v-card-title class="font-weight-medium text-body-1">{{ name }}</v-card-title>
-    </div>
-    <v-row align="center" justify="space-between" class="px-4 mb-2">
-      <v-card-title class="text-grey-darken-4">
-        {{ formatCurrencyBR(price) }}
+      <v-img :src="image" height="180" class="rounded-t-xl" />
+      <v-card-title class="font-weight-medium text-body-1 text-grey-darken-3 px-4 pt-3">
+        {{ name }}
       </v-card-title>
-      <div class="d-flex align-center" v-if="showActions">
+    </div>
+    <v-row align="center" justify="space-between" class="px-4 pb-3">
+      <v-card-subtitle class="text-h6 font-weight-bold text-primary">
+        {{ formatCurrencyBR(price) }}
+      </v-card-subtitle>
+      <div v-if="isLogged && showActions" class="d-flex align-center">
         <v-btn
           icon
           size="small"
-          color="green-lighten-1"
-          variant="text"
+          color="primary"
+          variant="tonal"
+          class="me-2"
           @click="$emit('edit')"
           title="Editar"
         >
-          <v-icon>mdi-pencil</v-icon>
+          <v-icon size="20">mdi-pencil</v-icon>
         </v-btn>
         <v-btn
           icon
           size="small"
-          color="red-lighten-1
-"
-          variant="text"
+          color="red"
+          variant="tonal"
           @click="$emit('delete')"
           title="Excluir"
         >
-          <v-icon>mdi-delete</v-icon>
+          <v-icon size="20">mdi-delete</v-icon>
         </v-btn>
       </div>
     </v-row>

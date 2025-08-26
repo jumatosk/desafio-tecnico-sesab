@@ -1,15 +1,15 @@
 import Swal from 'sweetalert2/dist/sweetalert2'
 
 export default {
-  message(titulo = '', texto, tipoIcone = 'success', color = '#0471b5') {
-    Swal.fire({
+  message(titulo = '', texto, tipoIcone = 'success', color = '#0471b5', confirmButtonText = 'Ok') {
+    return Swal.fire({
       position: 'center',
       icon: tipoIcone,
       title: titulo,
       text: texto,
       showConfirmButton: true,
       confirmButtonColor: color,
-      confirmButtonText: `<div style="color: white !important;">Ok</div>`,
+      confirmButtonText: `<div style="color: white !important;">${confirmButtonText}</div>`,
       reverseButtons: true,
     })
   },

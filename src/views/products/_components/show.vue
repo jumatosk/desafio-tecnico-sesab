@@ -26,6 +26,18 @@ onMounted(async () => {
 })
 
 const addItemToCart = async () => {
+  if (!userId || !cartId) {
+    Swal.message(
+      strings.msg_atencao,
+      strings.msg_usuario_nao_autenticado_carrinho,
+      'warning',
+      '',
+      'Entrar',
+    ).then(() => {
+      router.push({ name: 'auth' })
+    })
+    return
+  }
   const response = await cartStore.updateItem({ products: [form], userId, id: cartId })
 
   if (!response.status == 200) return false
@@ -67,7 +79,9 @@ watch(
       </v-col>
       <v-col>
         <v-col cols="12" sm="12" md="9">
-          <ShowData :value="form.title" />
+          <p class="text-h6 font-weight-bold text-center">
+            {{ form.title }}
+          </p>
         </v-col>
         <v-col cols="12" sm="12" md="12">
           <ShowData label="Descrição" :value="form.description" />

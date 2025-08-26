@@ -5,6 +5,7 @@ export default [
     component: () => import('../index.vue'),
     meta: {
       pageTitle: 'Usuários',
+      requiresAuth: true,
     },
   },
   {
@@ -13,6 +14,7 @@ export default [
     component: () => import('../_components/form.vue'),
     meta: {
       pageTitle: 'Criar Usuário',
+      requiresAuth: true,
     },
   },
   {
@@ -21,6 +23,7 @@ export default [
     component: () => import('../_components/form.vue'),
     meta: {
       pageTitle: 'Editar Usuário',
+      requiresAuth: true,
     },
   },
   {
@@ -29,6 +32,7 @@ export default [
     component: () => import('../_components/show.vue'),
     meta: {
       pageTitle: 'Detalhar Usuário',
+      requiresAuth: true,
     },
   },
 ]
