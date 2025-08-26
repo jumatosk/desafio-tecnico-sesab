@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import BaseLayout from '@/layout/BaseLayout.vue'
+import HomeRoutes from '../views/home/_routes/index.js'
 import productsRoutes from '../views/products/_routes/index.js'
 import UsersRoutes from '../views/users/_routes/index.js'
 import AuthRoutes from '../views/auth/_routes/index.js'
@@ -13,7 +14,7 @@ const router = createRouter({
     {
       path: '/',
       component: BaseLayout,
-      children: [...productsRoutes, ...UsersRoutes],
+      children: [...HomeRoutes, ...productsRoutes, ...UsersRoutes],
     },
     {
       path: '/auth',

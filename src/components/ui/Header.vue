@@ -17,6 +17,10 @@ const logout = () => {
 const login = () => {
   router.push('/auth/login')
 }
+
+const getUsername = () => {
+  return localStorage.getItem('username')
+}
 </script>
 <template>
   <Drawer v-model="drawer" />
@@ -32,14 +36,21 @@ const login = () => {
 
     <v-menu>
       <template v-slot:activator="{ props }">
-        <IconButton icon="mdi-account-circle" density="default" color="black" v-bind="props" />
+        <div class="mx-4 d-flex align-center cursor-pointer" v-bind="props">
+          <div v-if="stateAuth.isLogged">{{ getUsername() }}</div>
+          <IconButton icon="mdi-account-circle" density="default" color="black" />
+        </div>
       </template>
-      <v-list class="cursor-pointer mx-2">
+      <v-list class="cursor-pointer mx-4">
         <v-list-item class="cursor-pointer" v-if="stateAuth.isLogged" @click="logout">
-          <v-list-item-title>Sair</v-list-item-title>
+          <v-list-item-title
+            ><v-icon size="md" class="mx-2">mdi-logout</v-icon>Sair</v-list-item-title
+          >
         </v-list-item>
         <v-list-item v-if="!stateAuth.isLogged" @click="login">
-          <v-list-item-title>Entrar</v-list-item-title>
+          <v-list-item-title
+            ><v-icon size="md" class="mx-2">mdi-login</v-icon>Entrar</v-list-item-title
+          >
         </v-list-item>
       </v-list>
     </v-menu>
