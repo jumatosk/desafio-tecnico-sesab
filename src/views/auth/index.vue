@@ -47,6 +47,7 @@ async function onSubmit() {
     if (response.status === 201) {
       authStore.updateIsLogged(true)
       saveToken(response.data.token)
+      saveUsername()
       router.push('/')
     }
   }
@@ -54,6 +55,10 @@ async function onSubmit() {
 
 const saveToken = (token) => {
   localStorage.setItem('token', token)
+}
+
+const saveUsername = () => {
+  localStorage.setItem('username', form.username)
 }
 
 watch(v$, (newVal) => {

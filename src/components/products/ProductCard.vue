@@ -22,14 +22,11 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'view', 'delete'])
 </script>
 <template>
-  <v-card
-    class="mx-auto my-2 elevation-1 cursor-pointer"
-    @click="$emit('view')"
-    max-width="300"
-    outlined
-  >
-    <v-img :src="image" height="180" class="rounded-t"></v-img>
-    <v-card-title class="font-weight-medium text-body-1">{{ name }}</v-card-title>
+  <v-card class="mx-auto my-2 elevation-1 cursor-pointer" max-width="300" outlined>
+    <div @click="$emit('view')">
+      <v-img :src="image" height="180" class="rounded-t"></v-img>
+      <v-card-title class="font-weight-medium text-body-1">{{ name }}</v-card-title>
+    </div>
     <v-row align="center" justify="space-between" class="px-4 mb-2">
       <v-card-title class="text-grey-darken-4">
         {{ formatCurrencyBR(price) }}

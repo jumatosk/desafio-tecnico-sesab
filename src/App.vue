@@ -1,7 +1,14 @@
 <script setup>
 import { onMounted } from 'vue'
+import { useAuthStore } from './views/auth/_store'
 
-onMounted(() => {})
+const authStore = useAuthStore()
+
+onMounted(() => {
+  if (localStorage.getItem('token')) {
+    authStore.updateIsLogged(true)
+  }
+})
 </script>
 
 <template>
