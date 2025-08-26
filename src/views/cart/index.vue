@@ -38,6 +38,17 @@ const decreaseItemFromCart = (item) => {
     cartStore.decreaseItem(item)
   }
 }
+
+const deleteItem = async (item) => {
+  Swal.deleteMessage('Deseja excluir o item: ', `${item.title}`).then(async (result) => {
+    if (result.isConfirmed) {
+      const response = await cartStore.deleteItem(item.id)
+      if (response.status != 200) return false
+      // await search()
+      Swal.messageToast(strings.msg_excluir)
+    }
+  })
+}
 </script>
 
 <template>
@@ -52,7 +63,7 @@ const decreaseItemFromCart = (item) => {
             <Datatable
               :headers="headers"
               :data="cartItems"
-              :customColumn="['title', 'price', 'quantity']"
+              :customColumn="['title', 'price', 'quantity', 'actions']"
               :showPaginate="false"
             >
               <template #title="{ item }">
@@ -69,15 +80,22 @@ const decreaseItemFromCart = (item) => {
                 {{ formatCurrencyBR(item.price) }}
               </template>
               <template #quantity="{ item }">
-                <div class="d-flex justify-space-evenly">
+                <div class="d-flex justify-space-between">
                   <IconButton
                     icon="mdi-minus"
-                    color="black"
+                    color="white"
                     :onClick="() => decreaseItemFromCart(item)"
                   />
                   <div>{{ getItemQuantity(item.id) }}</div>
-                  <IconButton icon="mdi-plus" color="black" :onClick="() => addItemToCart(item)" />
+                  <IconButton icon="mdi-plus" color="white" :onClick="() => addItemToCart(item)" />
                 </div>
+              </template>
+              <template #actions="{ item }">
+                <IconButton
+                  icon="mdi-delete-outline"
+                  color="white"
+                  :onClick="() => deleteItem(item)"
+                />
               </template>
               <template #no-data>
                 <div class="font-italic text-center">Seu carrinho está vazio.</div>

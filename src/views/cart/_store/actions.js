@@ -1,3 +1,5 @@
+import api from '../_api'
+
 async function getIndex() {
   return this.index
 }
@@ -13,8 +15,13 @@ async function decreaseItem(item) {
   }
 }
 
+async function deleteItem(id) {
+  return await api.deleteItem(id)
+}
+
 export default {
   getIndex,
   addItem,
   decreaseItem,
+  deleteItem,
 }
