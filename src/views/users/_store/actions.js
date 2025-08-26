@@ -20,10 +20,15 @@ async function deleteItem(id) {
   return await api.deleteItem(id)
 }
 
+function getUserId() {
+  return this.index.find((user) => user.username == localStorage.getItem('username')).id
+}
+
 export default {
   getIndex,
   createItem,
   getItemById,
   updateItem,
   deleteItem,
+  getUserId,
 }
