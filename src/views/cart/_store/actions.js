@@ -1,7 +1,7 @@
 import api from '../_api'
 
-async function getIndex() {
-  return this.index
+async function getIndex(params) {
+  this.index = await api.getIndex(params)
 }
 
 async function addItem(item) {

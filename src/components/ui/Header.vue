@@ -11,7 +11,7 @@ const stateAuth = authStore.$state
 const router = useRouter()
 
 const logout = () => {
-  localStorage.removeItem('token')
+  localStorage.clear()
   authStore.updateIsLogged(false)
 }
 

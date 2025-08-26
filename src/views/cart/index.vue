@@ -1,33 +1,53 @@
 <script setup>
-import { computed, inject } from 'vue'
+import { onMounted, computed, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatCurrencyBR } from '@/functions/formatCurrency'
 import { useCartStore } from './_store'
+import { useUsersStore } from '../users/_store'
+import { useProductsStore } from '../products/_store'
 import { constants } from './_constants'
 
 const router = useRouter()
 const strings = inject('strings')
 const cartStore = useCartStore()
 const stateCart = cartStore.$state
+const usersStore = useUsersStore()
+const productsStore = useProductsStore()
+const stateProducts = productsStore.$state
 const headers = [...constants.headers]
 
+onMounted(async () => {
+  await cartStore.getIndex()
+  await productsStore.getIndex()
+})
+
 const cartItems = computed(() => {
-  const uniqueItems = []
-  const seenIds = new Set()
-  for (const item of stateCart.index) {
-    if (!seenIds.has(item.id)) {
-      uniqueItems.push(item)
-      seenIds.add(item.id)
+  if (stateCart.index.length > 0) {
+    const cart = stateCart.index.find((cart) => cart.userId == usersStore.getUserId())
+    let products = []
+
+    for (const _product in cart.products) {
+      const productObject = stateProducts.index.find(
+        (item) => item.id == cart.products[_product].productId,
+      )
+      if (productObject) {
+        products.push({
+          ...productObject,
+          quantity: cart.products[_product].quantity,
+        })
+      }
     }
+    return products
   }
-  return uniqueItems
 })
 
 const getItemQuantity = (id) => stateCart.index.filter((item) => item.id === id).length
 
-const totalPrice = computed(() =>
-  cartItems.value.reduce((acc, item) => acc + item.price * getItemQuantity(item.id), 0),
-)
+const totalPrice = computed(() => {
+  if (cartItems.value) {
+    return cartItems.value.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  }
+})
 
 const addItemToCart = (item) => {
   cartStore.addItem(item)
@@ -44,7 +64,7 @@ const deleteItem = async (item) => {
     if (result.isConfirmed) {
       const response = await cartStore.deleteItem(item.id)
       if (response.status != 200) return false
-      // await search()
+      await cartStore.getIndex()
       Swal.messageToast(strings.msg_excluir)
     }
   })
@@ -86,7 +106,7 @@ const deleteItem = async (item) => {
                     color="white"
                     :onClick="() => decreaseItemFromCart(item)"
                   />
-                  <div>{{ getItemQuantity(item.id) }}</div>
+                  <div>{{ item.quantity }}</div>
                   <IconButton icon="mdi-plus" color="white" :onClick="() => addItemToCart(item)" />
                 </div>
               </template>
