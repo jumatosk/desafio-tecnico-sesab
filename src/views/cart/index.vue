@@ -98,8 +98,8 @@ const deleteItem = async (item) => {
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-card-title class="font-weight-medium"
-            >Carrinho de Compras <v-icon class="mx-2">mdi-cart-plus</v-icon></v-card-title
+          <v-card-title class="font-weight-medium text-body-1 text-grey-darken-3 px-4 pt-3"
+            >Meu Carrinho <v-icon class="mx-2">mdi-cart-plus</v-icon></v-card-title
           >
           <v-card-text>
             <Datatable

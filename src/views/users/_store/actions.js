@@ -21,7 +21,7 @@ async function deleteItem(id) {
 }
 
 function getUserId() {
-  return this.index.find((user) => user.username == localStorage.getItem('username')).id
+  return this.index.find((user) => user.username == localStorage.getItem('username'))?.id
 }
 
 export default {

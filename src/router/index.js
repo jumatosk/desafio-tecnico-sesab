@@ -25,6 +25,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const isLogged = localStorage.getItem('token')
+
+  if (!isLogged && to.meta.requiresAuth) {
+    return next({ name: 'auth' })
+  }
   NProgress.start()
 
   const defaultTitle = 'Desafio Técnico SESAB'

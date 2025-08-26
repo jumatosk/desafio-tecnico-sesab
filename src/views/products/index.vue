@@ -2,6 +2,7 @@
 import { onMounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProductsStore } from './_store'
+import { useAuthStore } from '../auth/_store'
 import ProductCard from '@/components/products/ProductCard.vue'
 import { constants } from './_constants'
 
@@ -9,6 +10,7 @@ const router = useRouter()
 const productsStore = useProductsStore()
 const stateProducts = productsStore.$state
 const strings = inject('strings')
+const isLogged = useAuthStore().$state.isLogged
 
 onMounted(async () => {
   await search()
@@ -43,7 +45,7 @@ const deleteProduct = async (item) => {
       <Breadcrumbs :items="constants.breadcrumbs"></Breadcrumbs>
     </template>
     <template #extra>
-      <Button @click="router.push('/products/create')"> Adicionar </Button>
+      <Button v-if="isLogged" @click="router.push('/products/create')"> Adicionar </Button>
     </template>
   </base-page-heading>
   <v-row>

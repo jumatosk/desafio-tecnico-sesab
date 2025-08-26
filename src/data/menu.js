@@ -17,6 +17,7 @@ export default {
       icon: 'mdi-account',
       subActivePaths: '/users',
       to: '/users',
+      requiresAuth: true,
     },
   ],
 }

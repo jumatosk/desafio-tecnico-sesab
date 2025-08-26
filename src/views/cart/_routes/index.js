@@ -5,6 +5,7 @@ export default [
     component: () => import('../index.vue'),
     meta: {
       pageTitle: 'Carrinho',
+      requiresAuth: true,
     },
   },
 ]

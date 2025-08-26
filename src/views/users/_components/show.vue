@@ -57,7 +57,7 @@ watch(
         <ShowData label="Usuário" :value="form.username" />
       </v-col>
       <v-col cols="12" sm="6" md="4">
-        <ShowData label="Email" :value="form.email" />
+        <ShowData label="E-mail" :value="form.email" />
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <ShowData label="Telefone" :value="form.phone" />

@@ -57,24 +57,30 @@ const deleteUser = async (item) => {
     <template #actions="{ item }">
       <IconButton
         icon="mdi-pencil"
-        color="green-lighten-1"
-        variant="text"
+        color="success"
+        variant="tonal"
         :onClick="() => editUser(item.id)"
         title="Editar"
+        density="default"
+        class="mx-1"
       />
       <IconButton
         icon="mdi-eye"
-        color="blue-lighten-1"
-        variant="text"
+        color="primary"
+        variant="tonal"
         :onClick="() => viewUser(item.id)"
         title="Detalhar"
+        density="default"
+        class="mx-1"
       />
       <IconButton
         icon="mdi-delete"
-        color="red-lighten-1"
-        variant="text"
+        color="red"
+        variant="tonal"
         :onClick="() => deleteUser(item)"
         title="Excluir"
+        density="default"
+        class="mx-1"
       />
     </template>
   </Datatable>
