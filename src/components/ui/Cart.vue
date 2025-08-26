@@ -15,9 +15,15 @@ const getItemsQuantity = () => {
   if (stateCart.index.length > 0) {
     const cart = stateCart.index.find((cart) => cart.userId == usersStore.getUserId())
 
+    saveCartId(cart.id)
+
     const total = cart.products.reduce((acc, item) => acc + item.quantity, 0)
     return total > 99 ? '99+' : total
   }
+}
+
+const saveCartId = (id) => {
+  localStorage.setItem('cartId', id)
 }
 </script>
 <template>
