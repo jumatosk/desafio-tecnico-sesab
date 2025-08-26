@@ -5,6 +5,7 @@ export const Strings = {
   msg_adicionar: 'Adicionado com sucesso.',
   msg_alterar: 'Alterado com sucesso.',
   msg_excluir: 'Excluído com sucesso.',
+  msg_qtd: 'Quantidade alterada com sucesso.',
 
   //Mensagens de validação de formulário
   campo_obrigatorio: 'Campo obrigatório.',

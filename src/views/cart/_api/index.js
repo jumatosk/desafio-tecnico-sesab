@@ -10,8 +10,10 @@ const getIndex = async (params) => {
   return false
 }
 
-const deleteItem = async (id) => {
-  const result = await useApiStore().delete(apiUrl, id)
+const updateItem = async (params) => {
+  const id = params.id
+  delete params.id
+  const result = await useApiStore().put(apiUrl, id, JSON.parse(JSON.stringify(params)))
   if (result) {
     return result
   }
@@ -20,5 +22,5 @@ const deleteItem = async (id) => {
 
 export default {
   getIndex,
-  deleteItem,
+  updateItem,
 }

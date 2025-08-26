@@ -15,6 +15,7 @@ const usersStore = useUsersStore()
 const productsStore = useProductsStore()
 const stateProducts = productsStore.$state
 const headers = [...constants.headers]
+const cartId = localStorage.getItem('cartId')
 
 onMounted(async () => {
   await cartStore.getIndex()
@@ -41,28 +42,49 @@ const cartItems = computed(() => {
   }
 })
 
-const getItemQuantity = (id) => stateCart.index.filter((item) => item.id === id).length
-
 const totalPrice = computed(() => {
   if (cartItems.value) {
     return cartItems.value.reduce((acc, item) => acc + item.price * item.quantity, 0)
   }
 })
 
-const addItemToCart = (item) => {
-  cartStore.addItem(item)
+const increaseItem = async (item) => {
+  updateItemQuantity(item, item.quantity + 1)
 }
 
-const decreaseItemFromCart = (item) => {
-  if (getItemQuantity(item.id) > 1) {
-    cartStore.decreaseItem(item)
+const decreaseItem = async (item) => {
+  if (item.quantity > 1) {
+    updateItemQuantity(item, item.quantity - 1)
   }
+}
+const updateItemQuantity = async (item, quantity) => {
+  const productWithQuantityUpdated = cartItems.value.find((product) => product.id == item.id)
+  productWithQuantityUpdated.quantity = quantity
+
+  const index = cartItems.value.indexOf(productWithQuantityUpdated)
+  cartItems.value.splice(index, 1, { ...productWithQuantityUpdated })
+
+  const payload = {
+    id: cartId,
+    userId: usersStore.getUserId(),
+    products: cartItems.value,
+  }
+
+  const response = await cartStore.updateItem(payload)
+  if (response.status != 200) return false
+  await cartStore.getIndex()
+  Swal.messageToast(strings.msg_qtd)
 }
 
 const deleteItem = async (item) => {
   Swal.deleteMessage('Deseja excluir o item: ', `${item.title}`).then(async (result) => {
     if (result.isConfirmed) {
-      const response = await cartStore.deleteItem(item.id)
+      const payload = {
+        id: cartId,
+        userId: usersStore.getUserId(),
+        products: [],
+      }
+      const response = await cartStore.updateItem(payload)
       if (response.status != 200) return false
       await cartStore.getIndex()
       Swal.messageToast(strings.msg_excluir)
@@ -104,10 +126,11 @@ const deleteItem = async (item) => {
                   <IconButton
                     icon="mdi-minus"
                     color="white"
-                    :onClick="() => decreaseItemFromCart(item)"
+                    :onClick="() => decreaseItem(item)"
+                    :disabled="item.quantity == 1"
                   />
                   <div>{{ item.quantity }}</div>
-                  <IconButton icon="mdi-plus" color="white" :onClick="() => addItemToCart(item)" />
+                  <IconButton icon="mdi-plus" color="white" :onClick="() => increaseItem(item)" />
                 </div>
               </template>
               <template #actions="{ item }">
