@@ -52,8 +52,11 @@ const deleteUser = async (item) => {
     :data="stateUsers.index"
     :headers="constants.headers"
     :showPaginate="false"
-    :customColumn="['actions']"
+    :customColumn="['name', 'actions']"
   >
+    <template #name="{ item }">
+      <div class="text-capitalize">{{ `${item.name.firstname} ${item.name.lastname}` }}</div>
+    </template>
     <template #actions="{ item }">
       <IconButton
         icon="mdi-pencil"

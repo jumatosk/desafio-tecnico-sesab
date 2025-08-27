@@ -52,7 +52,11 @@ watch(
   <v-card class="pa-4 mb-4 bg-grey-lighten-5 elevation-0">
     <v-row>
       <v-col cols="12" sm="6" md="4">
-        <ShowData label="Nome" :value="form.name?.firstname + ' ' + form.name?.lastname" />
+        <ShowData
+          class="text-capitalize"
+          label="Nome"
+          :value="form.name?.firstname + ' ' + form.name?.lastname"
+        />
       </v-col>
       <v-col cols="12" sm="6" md="4">
         <ShowData label="Usuário" :value="form.username" />
