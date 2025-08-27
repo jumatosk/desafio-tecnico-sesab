@@ -2,8 +2,7 @@ const headers = [
   {
     title: 'Nome',
     align: 'left',
-    key: 'nome',
-    value: (row) => `${row.name.firstname} ${row.name.lastname}`,
+    key: 'name',
   },
   { title: 'E-mail', align: 'left', key: 'email' },
   { title: 'Nome de usuário', align: 'left', key: 'username' },

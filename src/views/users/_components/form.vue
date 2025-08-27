@@ -27,6 +27,16 @@ onMounted(async () => {
 
 const rules = computed(() => {
   return {
+    name: {
+      firstname: {
+        required,
+        maxLength: maxLength(100),
+      },
+      lastname: {
+        required,
+        maxLength: maxLength(100),
+      },
+    },
     username: {
       required,
       maxLength: maxLength(100),
@@ -71,6 +81,16 @@ const onSubmit = async () => {
 }
 
 watch(v$, (newVal) => {
+  if (newVal.name.firstname.$error) {
+    const errorType = newVal.name.firstname.$errors[0].$params.type
+    const message = errorMessages[errorType]
+    newVal.name.firstname.$errors[0].$params.message = message
+  }
+  if (newVal.name.lastname.$error) {
+    const errorType = newVal.name.lastname.$errors[0].$params.type
+    const message = errorMessages[errorType]
+    newVal.name.lastname.$errors[0].$params.message = message
+  }
   if (newVal.username.$error) {
     const errorType = newVal.username.$errors[0].$params.type
     const message = errorMessages[errorType]
@@ -109,6 +129,34 @@ watch(
   <form @submit.prevent="onSubmit">
     <v-card class="pa-4 mb-4 bg-grey-lighten-5 elevation-0">
       <v-row>
+        <v-col cols="12" sm="12" md="6">
+          <TextField
+            v-model="form.name.firstname"
+            :value="form.name.firstname"
+            :error="v$.name.firstname.$errors.length > 0"
+            :onInput="v$.name.firstname.$touch"
+            :blur="v$.name.firstname.$touch"
+            :errorMessages="
+              v$.name.firstname.$errors.length ? v$.name.firstname.$errors[0].$params.message : ''
+            "
+            label="Nome"
+            required
+          />
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <TextField
+            v-model="form.name.lastname"
+            :value="form.name.lastname"
+            :error="v$.name.lastname.$errors.length > 0"
+            :onInput="v$.name.lastname.$touch"
+            :blur="v$.name.lastname.$touch"
+            :errorMessages="
+              v$.name.lastname.$errors.length ? v$.name.lastname.$errors[0].$params.message : ''
+            "
+            label="Sobrenome"
+            required
+          />
+        </v-col>
         <v-col cols="12" sm="12" md="6">
           <TextField
             v-model="form.username"
