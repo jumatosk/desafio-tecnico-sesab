@@ -11,6 +11,7 @@ const form = reactive({ ...constants.form })
 const route = useRoute()
 const router = useRouter()
 const strings = inject('strings')
+const apiKey = import.meta.env.VITE_STADIA_MAPS_API_KEY
 
 onMounted(async () => {
   if (route.params.id) {
@@ -26,7 +27,7 @@ const mapUrl = computed(() => {
     const zoom = 1
     const width = 500
     const height = 300
-    return `https://tiles.stadiamaps.com/static/osm_bright.png?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&markers=${lat},${lng}`
+    return `https://tiles.stadiamaps.com/static/osm_bright.png?api_key=${apiKey}&center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&markers=${lat},${lng}`
   }
 })
 
