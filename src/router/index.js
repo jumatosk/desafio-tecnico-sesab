@@ -1,8 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import NProgress from 'nprogress'
+import BaseLayout from '@/layout/BaseLayout.vue'
+import HomeRoutes from '../views/home/_routes/index.js'
+import productsRoutes from '../views/products/_routes/index.js'
+import CartRoutes from '../views/cart/_routes/index.js'
+import UsersRoutes from '../views/users/_routes/index.js'
+import AuthRoutes from '../views/auth/_routes/index.js'
+
+NProgress.configure({ showSpinner: false })
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: [
+    {
+      path: '/',
+      component: BaseLayout,
+      children: [...HomeRoutes, ...productsRoutes, ...CartRoutes, ...UsersRoutes],
+    },
+    {
+      path: '/auth',
+      children: [...AuthRoutes],
+    },
+  ],
+})
+
+router.beforeEach((to, from, next) => {
+  const isLogged = localStorage.getItem('token')
+
+  if (!isLogged && to.meta.requiresAuth) {
+    return next({ name: 'auth' })
+  }
+  NProgress.start()
+
+  const defaultTitle = 'Desafio Técnico SESAB'
+  document.title = to.meta.pageTitle ? `${to.meta.pageTitle} | ${defaultTitle}` : defaultTitle
+
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

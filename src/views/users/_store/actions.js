@@ -1,0 +1,34 @@
+import api from '../_api'
+
+async function getIndex(params) {
+  this.index = await api.getIndex(params)
+}
+
+async function createItem(params) {
+  return await api.createItem(params)
+}
+
+async function getItemById(id) {
+  this.userById = await api.getItemById(id)
+}
+
+async function updateItem(params) {
+  return await api.updateItem(params)
+}
+
+async function deleteItem(id) {
+  return await api.deleteItem(id)
+}
+
+function getUserId() {
+  return this.index.find((user) => user.username == localStorage.getItem('username'))?.id
+}
+
+export default {
+  getIndex,
+  createItem,
+  getItemById,
+  updateItem,
+  deleteItem,
+  getUserId,
+}
